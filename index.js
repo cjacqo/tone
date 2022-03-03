@@ -19,7 +19,19 @@
 // // wait one second before triggering the release
 // synth.triggerRelease(now + 1)
 
+let loopBeat
+
+function setup() {
+    loopBeat = new Tone.Loop(song, '4n' )
+    Tone.Transport.start()
+    loopBeat.start(0)
+}
+
+function song(time) {
+    console.log(time)
+}
+
 // attach a click listener to a play button
 document.querySelector('button')?.addEventListener('click', () => {
-    console.log("Hi")
+    setup()
 })
