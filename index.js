@@ -27,7 +27,22 @@ function song(time) {
     if (counter % 4 === 0) {
         bassSynth.triggerAttackRelease("F#3", '8n', time, 1)
     }
-    if (counter % 2 === 0) {
+
+    // --- simple hat
+    // if (counter % 2 === 0) {
+    //     cymbalSynth.triggerAttackRelease('32n', time, 0.3)
+    // }
+
+    // --- cool hat
+    if (counter % 4 !== 1) {
+        if (counter === 3 || counter === 12) {
+            // -- slight open cymbal 
+            cymbalSynth.envelope.decay = 0.5
+        } else {
+            // -- shortest cymbal 
+            cymbalSynth.envelope.decay = 0.01
+        }
+        // -- default cymbal 
         cymbalSynth.triggerAttackRelease('32n', time, 0.3)
     }
 
