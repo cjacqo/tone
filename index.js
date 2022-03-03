@@ -49,7 +49,17 @@ function song(time) {
     counter = (counter + 1) % 16
 }
 
+function stop() {
+    console.log("Hi")
+    Tone.Transport.stop()
+}
+
 // attach a click listener to a play button
 document.querySelector('#start')?.addEventListener('click', () => {
     setup()
+})
+
+// attach a click listener to a play button
+document.querySelector('#stop')?.addEventListener('click', () => {
+    stop()
 })
