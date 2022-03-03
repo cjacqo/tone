@@ -13,7 +13,6 @@ function setup() {
     polySynth.set({ detune: -1200 })
     
     loopBeat = new Tone.Loop(song, '16n' )
-
     // Set bpm
     // Tone.Transport.bpm.value = 140
 
@@ -50,8 +49,7 @@ function song(time) {
 }
 
 function stop() {
-    console.log("Hi")
-    Tone.Transport.stop()
+    Tone.Transport.pause()
 }
 
 // attach a click listener to a play button
