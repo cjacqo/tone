@@ -6,6 +6,10 @@ function setup() {
     bassSynth = new Tone.MembraneSynth().toMaster()
     
     loopBeat = new Tone.Loop(song, '4n' )
+
+    // Set bpm
+    Tone.Transport.bpm.value = 140
+
     Tone.Transport.start()
     loopBeat.start(0)
 }
