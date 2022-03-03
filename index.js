@@ -2,7 +2,7 @@ let loopBeat
 let bassSynth, snare, cymbalSynth, polySynth
 let counter
 
-bassSynth = new Tone.MembraneSynth().toMaster()
+bassSynth = new Tone.MonoSynth().toMaster()
 
 // Array of note objects
 const notesArr = [
