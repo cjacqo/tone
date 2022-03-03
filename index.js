@@ -2,62 +2,120 @@ let loopBeat
 let bassSynth, snare, cymbalSynth, polySynth
 let counter
 
-function setup() {
-    counter = 0
-    
-    // Initialize the bassSynth, and polySynth
-    bassSynth = new Tone.MembraneSynth().toMaster()
-    cymbalSynth = new Tone.MetalSynth().toMaster()
-    snare       = new Tone.MembraneSynth().toMaster()
-    polySynth = new Tone.PolySynth().toMaster()
-    polySynth.set({ detune: -1200 })
-    
-    loopBeat = new Tone.Loop(song, '16n' )
-    // Set bpm
-    // Tone.Transport.bpm.value = 140
+bassSynth = new Tone.MembraneSynth().toMaster()
 
-    Tone.Transport.start()
-    loopBeat.start(0)
-}
+// Array of note objects
+const notesArr = [
+    {
+        value: 'A',
+        note: 'C',
+        dataKey: '65'
+    },
+    {
+        value: 'W',
+        note: 'C#',
+        dataKey: '87'
+    },
+    {
+        value: 'S',
+        note: 'D',
+        dataKey: '83'
+    },
+    {
+        value: 'E',
+        note: 'D#',
+        dataKey: '69'
+    },
+    {
+        value: 'D',
+        note: 'E',
+        dataKey: '68'
+    },
+    {
+        value: 'F',
+        note: 'F',
+        dataKey: '70'
+    },
+    {
+        value: 'T',
+        note: 'F#',
+        dataKey: '84'
+    },
+    {
+        value: 'G',
+        note: 'G',
+        dataKey: '71'
+    },
+    {
+        value: 'Y',
+        note: 'G#',
+        dataKey: '89'
+    },
+    {
+        value: 'H',
+        note: 'A',
+        dataKey: '72'
+    },
+    {
+        value: 'U',
+        note: 'A#',
+        dataKey: '85'
+    },
+    {
+        value: 'J',
+        note: 'B',
+        dataKey: '74'
+    },
+    {
+        value: 'K',
+        note: 'C',
+        dataKey: '75'
+    },
+    {
+        value: 'O',
+        note: 'C#',
+        dataKey: '79'
+    },
+    {
+        value: 'L',
+        note: 'D',
+        dataKey: '76'
+    }
+]
 
-// ??? to fix a sample playback issue with the web and sound,
-//     do the following to the song function
-function song(time) {
-    if (counter % 4 === 0) {
-        bassSynth.triggerAttackRelease("F#3", '8n', time, 1)
+// Query the piano parent
+const pianoParent = document.querySelector('.parent')
+
+// Create a parent element for the keys
+const pianoContainer = document.createElement('div')
+pianoContainer.classList.add('piano', 'container')
+
+// Create list of key objects (HTML with click listener)
+let keys = notesArr.map(el => {
+    const { note, dataKey } = el
+    let key = document.createElement('div')
+    key.setAttribute("data-key", `${dataKey}`)
+    key.setAttribute("data-note", `${note}`)
+    
+    if (note.includes("#")) {
+        key.classList.add('key', 'black')
+    } else {
+        key.classList.add('key', 'white')
     }
 
-    // --- simple hat
-    // if (counter % 2 === 0) {
-    //     cymbalSynth.triggerAttackRelease('32n', time, 0.3)
-    // }
+    key.addEventListener('mousedown', () => {
+        playNote(note)
+    })
 
-    // --- cool hat
-    if (counter % 4 !== 1) {
-        if (counter === 3 || counter === 12) {
-            // -- slight open cymbal 
-            cymbalSynth.envelope.decay = 0.5
-        } else {
-            // -- shortest cymbal 
-            cymbalSynth.envelope.decay = 0.01
-        }
-        // -- default cymbal 
-        cymbalSynth.triggerAttackRelease('32n', time, 0.3)
-    }
-
-    counter = (counter + 1) % 16
-}
-
-function stop() {
-    Tone.Transport.pause()
-}
-
-// attach a click listener to a play button
-document.querySelector('#start')?.addEventListener('click', () => {
-    setup()
+    // append key to pianoContainer
+    pianoContainer.appendChild(key)
+    return key
 })
 
-// attach a click listener to a play button
-document.querySelector('#stop')?.addEventListener('click', () => {
-    stop()
-})
+// Function play a piano note
+function playNote(note) {
+    bassSynth.triggerAttackRelease(`${note}3`, '8n')
+}
+
+// Append piano to the DOM
+pianoParent.appendChild(pianoContainer)

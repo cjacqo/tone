@@ -8,12 +8,39 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/0.12.0/Tone.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/8.5.1/nouislider.min.js"></script>
     <title>Tone.js Test</title>
+
+    <style>
+        body {
+            background-color: orange;
+        }
+
+        .piano {
+            width: 800px;
+            height: 600px;
+            margin: 0 auto;
+            display: flex;
+        }
+
+        .white {
+            flex: 1;
+            background-color: #fff;
+        }
+
+        .black {
+            flex: 1;
+            height: 50%;
+            background-color: #333;
+        }
+
+
+    </style>
 </head>
 <body>
-    Hi
+    
+    <div class="piano parent">
+        
+    </div>
 
-    <button type="button" id="start">Start</button>
-    <button type="button" id="stop">End</button>
     <script src="index.js"></script>
     
 </body>
