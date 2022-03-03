@@ -22,7 +22,14 @@ function setup() {
 function song(time) {
     bassSynth.triggerAttackRelease('C4', '8n', time)
     polySynth.triggerAttackRelease(['C4', 'E4', 'A4'], 1)
-    console.log(time)
+
+    // --- data type for current bea
+    //     BAR:BEATS:SIXTEENTH
+    let cb = [...Tone.Transport.position]
+    let bar = cb[0]
+    let beat = cb[2]
+    let sixt = cb[4]
+    console.log(bar)
 }
 
 function stop() {
