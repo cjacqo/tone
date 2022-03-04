@@ -1,16 +1,22 @@
 // const { Tone } = require("tone/build/esm/core/Tone")
 
+
+// ------ VARIABLES ------ //
+// -- Tone
+const TONE = new Tone()
+// -- Audio Context
+let context
+
+// -- Page Elements
+const pianoParent = document.querySelector('.parent')
+const pianoContainer = document.createElement('div')
+pianoContainer.classList.add('piano', 'container')
+
+// -- Tone Elements
+// synths
 let loopBeat
 let bassSynth, snare, cymbalSynth, polySynth, synth
 let counter
-
-synth = new Tone.Synth()
-bassSynth = new Tone.MonoSynth().toMaster()
-
-// Set tone of the synth to sine
-synth.oscillator.type = 'sine'
-// Connect to the master output
-synth.toMaster()
 
 // Array of note objects
 const notesArr = [
@@ -91,16 +97,36 @@ const notesArr = [
     }
 ]
 
-// Add event listener to listen for keyboard clicks
+// ------ WINDOW ------ //
+// -- Event Listeners
+// handle keyboard clicks to play/release notes
 window.addEventListener('keydown', playNote)
 window.addEventListener('keyup', releaseNote)
 
-// Query the piano parent
-const pianoParent = document.querySelector('.parent')
+function init() {
+    try {
+        window.AudioContext = window.AudioContext || window.webkitAudioContext
+        context = new AudioContext()
 
-// Create a parent element for the keys
-const pianoContainer = document.createElement('div')
-pianoContainer.classList.add('piano', 'container')
+        // initialize synths
+        synth = new Tone.Synth()
+        bassSynth = new Tone.MonoSynth().toMaster()
+        // define synth settings
+        synth.oscillator.type = 'sine'
+        // connect synths to audio nodes(?)
+        synth.toMaster()
+        context.resume()
+    } catch (err) {
+        alert('Web Audio API is not supported in this browser')
+    }
+}
+
+// resume context on window reload
+// if (location.reload()) {
+//     console.log("Reloaded")
+// }
+
+init()
 
 // Create list of key objects (HTML with click listener)
 let keys = notesArr.map(el => {
@@ -135,15 +161,16 @@ function playNote(e) {
         note = e
     }
 
-    synth.triggerAttack(`${note}3`, '+0')
+    Tone.context.resume().then(() => {
+        synth.triggerAttack(`${note}3`, '+0')
+    })
 }
 
 // Function to release a note on a keyboard release
 function releaseNote(e) {
-    let note
-    let [key] = notesArr.filter(key => key.dataKey === e.code)
-    note = key.note
-    synth.triggerRelease()
+    Tone.context.resume().then(() => {
+        synth.triggerRelease()
+    })
 }
 
 // Append piano to the DOM
