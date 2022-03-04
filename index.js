@@ -98,7 +98,7 @@ const notesArr = [
 ]
 
 // Array of wave types for oscillator
-const oscTypeArr = [ 'sine', 'sawtooth', 'triangle', 'square']
+const oscTypeArr = [ 'sine' ]
 
 function init() {
     try {
@@ -154,9 +154,14 @@ let keys = notesArr.map(el => {
 // -- OSC Wave Type Buttons
 let waveBtns = oscTypeArr.map(el => {
     const wave = el
+
+    // get the wave svg
+    let innerContent = getWaveImage(wave)
+
+    // create element, attach listener and append to parent container
     let btn = document.createElement('button')
     btn.setAttribute('value', wave)
-    btn.innerText = wave
+    btn.appendChild(innerContent)
 
     btn.addEventListener('click', () => {
         setOscillatorType(wave)
