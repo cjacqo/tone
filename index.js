@@ -1,3 +1,5 @@
+// const { Tone } = require("tone/build/esm/core/Tone")
+
 let loopBeat
 let bassSynth, snare, cymbalSynth, polySynth, synth
 let counter
