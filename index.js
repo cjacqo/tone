@@ -4,6 +4,9 @@
 // -- Audio Context
 let context
 
+// -- Keyboard and Notes
+let octave
+
 // -- Page Elements
 const pianoParent = document.querySelector('.piano.parent')
 const pianoContainer = document.createElement('div')
@@ -23,77 +26,92 @@ const notesArr = [
     {
         value: 'A',
         note: 'C',
-        dataKey: 'KeyA'
+        dataKey: 'KeyA',
+        adjustOctave: 0
     },
     {
         value: 'W',
         note: 'C#',
-        dataKey: 'KeyW'
+        dataKey: 'KeyW',
+        adjustOctave: 0
     },
     {
         value: 'S',
         note: 'D',
-        dataKey: 'KeyS'
+        dataKey: 'KeyS',
+        adjustOctave: 0
     },
     {
         value: 'E',
         note: 'D#',
-        dataKey: 'KeyE'
+        dataKey: 'KeyE',
+        adjustOctave: 0
     },
     {
         value: 'D',
         note: 'E',
-        dataKey: 'KeyD'
+        dataKey: 'KeyD',
+        adjustOctave: 0
     },
     {
         value: 'F',
         note: 'F',
-        dataKey: 'KeyF'
+        dataKey: 'KeyF',
+        adjustOctave: 0
     },
     {
         value: 'T',
         note: 'F#',
-        dataKey: 'KeyT'
+        dataKey: 'KeyT',
+        adjustOctave: 0
     },
     {
         value: 'G',
         note: 'G',
-        dataKey: 'KeyG'
+        dataKey: 'KeyG',
+        adjustOctave: 0
     },
     {
         value: 'Y',
         note: 'G#',
-        dataKey: 'KeyY'
+        dataKey: 'KeyY',
+        adjustOctave: 0
     },
     {
         value: 'H',
         note: 'A',
-        dataKey: 'KeyH'
+        dataKey: 'KeyH',
+        adjustOctave: 0
     },
     {
         value: 'U',
         note: 'A#',
-        dataKey: 'KeyU'
+        dataKey: 'KeyU',
+        adjustOctave: 0
     },
     {
         value: 'J',
         note: 'B',
-        dataKey: 'KeyJ'
+        dataKey: 'KeyJ',
+        adjustOctave: 0
     },
     {
         value: 'K',
         note: 'C',
-        dataKey: 'KeyK'
+        dataKey: 'KeyK',
+        adjustOctave: 1
     },
     {
         value: 'O',
         note: 'C#',
-        dataKey: 'KeyO'
+        dataKey: 'KeyO',
+        adjustOctave: 1
     },
     {
         value: 'L',
         note: 'D',
-        dataKey: 'KeyL'
+        dataKey: 'KeyL',
+        adjustOctave: 1
     }
 ]
 
@@ -108,12 +126,29 @@ function init() {
     } catch (err) {
         alert('Web Audio API is not supported in this browser')
     }
+
+    // set initial octave of keyboard
+    octave = 3
 }
 
 // ------ WINDOW ------ //
 // -- Event Listeners
 // handle keyboard clicks to play/release notes
-window.addEventListener('keydown', playNote)
+window.addEventListener('keydown', (e) => {
+    if (e.code === 'KeyX') {
+        if (octave < 7) {
+            octave = octave + 1
+        }
+        return
+    } else if (e.code === 'KeyZ') {
+        if (octave !== 0) {
+            octave = octave - 1
+        }
+        return
+    } else {
+        playNote(e)
+    }
+})
 window.addEventListener('keyup', releaseNote)
 
 window.onload = function() {
@@ -126,7 +161,6 @@ window.onload = function() {
     // connect synths to audio nodes(?)
     synth.toMaster()
 }
-
 
 // ------ CREATE ELEMENTS TO APPEND ------ //
 // -- Piano Keys
@@ -174,16 +208,19 @@ let waveBtns = oscTypeArr.map(el => {
 // Function play a piano note on a keyboard press
 function playNote(e) {
     let note
+    let baseOctave = octave
 
     if (e.type === 'keydown') {
         [key] = notesArr.filter(key => key.dataKey === e.code)
         note = key.note
+        console.log(key)
+        baseOctave = baseOctave + key.adjustOctave
     } else {
         note = e
     }
 
     Tone.context.resume().then(() => {
-        synth.triggerAttack(`${note}3`, Tone.context.currentTime)
+        synth.triggerAttack(`${note}${baseOctave}`, Tone.context.currentTime)
     })
 }
 
