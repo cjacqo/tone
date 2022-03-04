@@ -84,10 +84,7 @@ const notesArr = [
 ]
 
 // Add event listener to listen for keyboard clicks
-window.addEventListener('keydown', (e) => {
-    console.log(e)
-    playNote(e.code)
-})
+window.addEventListener('keydown', playNote)
 
 // Query the piano parent
 const pianoParent = document.querySelector('.parent')
@@ -119,9 +116,15 @@ let keys = notesArr.map(el => {
 })
 
 // Function play a piano note on a keyboard press
-function playNote(n) {
-    let [key] = notesArr.filter(key => key.dataKey === n)
-    bassSynth.triggerAttackRelease(`${key.note}3`, '8n', 1)
+function playNote(e) {
+    let note
+    if (e.type === 'keydown') {
+        [key] = notesArr.filter(key => key.dataKey === e.code)
+        note = key.note
+    } else {
+        note = e
+    }
+    bassSynth.triggerAttackRelease(`${note}3`, '8n', 1)
 }
 
 // Append piano to the DOM
