@@ -4,14 +4,11 @@ function sineWave(origin, svg) {
     let freq = 0.5          // --- controls how many waves their are
     let phase = 2
 
-    for (let i = -25; i < 25; i++) {
+    for (let i = -20; i < 20; i++) {
         let line = document.createElementNS("http://www.w3.org/2000/svg", "line")
 
         line.setAttribute('x1', (i - 1) * rarity + origin.x)
         line.setAttribute('y1', Math.sin(freq*(i - 1 + phase)) * amplitude + origin.y)
-
-        // line.setAttribute('x1', i + 10)
-        // line.setAttribute('y1', i + 10)
 
         line.setAttribute('x2', i * rarity + origin.x)
         line.setAttribute('y2', Math.sin(freq*(i + phase)) * amplitude + origin.y)
