@@ -27,7 +27,6 @@ function sawtoothWave(origin, svg) {
 function getWaveImage(wave) {
     // create page element
     let svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
-    // svg.setAttributeNS(null, "viewBox", "0 " + 15 + " " + 25 + " " + 25);
     svg.setAttributeNS(null, "viewBox", "0 -15 100 100");
     svg.setAttributeNS(null, "width", 25)
     svg.setAttributeNS(null, "height", 25)
