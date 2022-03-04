@@ -9,79 +9,85 @@ const notesArr = [
     {
         value: 'A',
         note: 'C',
-        dataKey: '65'
+        dataKey: 'KeyA'
     },
     {
         value: 'W',
         note: 'C#',
-        dataKey: '87'
+        dataKey: 'KeyW'
     },
     {
         value: 'S',
         note: 'D',
-        dataKey: '83'
+        dataKey: 'KeyS'
     },
     {
         value: 'E',
         note: 'D#',
-        dataKey: '69'
+        dataKey: 'KeyE'
     },
     {
         value: 'D',
         note: 'E',
-        dataKey: '68'
+        dataKey: 'KeyD'
     },
     {
         value: 'F',
         note: 'F',
-        dataKey: '70'
+        dataKey: 'KeyF'
     },
     {
         value: 'T',
         note: 'F#',
-        dataKey: '84'
+        dataKey: 'KeyT'
     },
     {
         value: 'G',
         note: 'G',
-        dataKey: '71'
+        dataKey: 'KeyG'
     },
     {
         value: 'Y',
         note: 'G#',
-        dataKey: '89'
+        dataKey: 'KeyY'
     },
     {
         value: 'H',
         note: 'A',
-        dataKey: '72'
+        dataKey: 'KeyH'
     },
     {
         value: 'U',
         note: 'A#',
-        dataKey: '85'
+        dataKey: 'KeyU'
     },
     {
         value: 'J',
         note: 'B',
-        dataKey: '74'
+        dataKey: 'KeyJ'
     },
     {
         value: 'K',
         note: 'C',
-        dataKey: '75'
+        dataKey: 'KeyK'
     },
     {
         value: 'O',
         note: 'C#',
-        dataKey: '79'
+        dataKey: 'KeyO'
     },
     {
         value: 'L',
         note: 'D',
-        dataKey: '76'
+        dataKey: 'KeyL'
     }
 ]
+
+// Add event listener to listen for keyboard clicks
+window.addEventListener('keydown', (e) => {
+    console.log(e)
+    playNote(e.code)
+})
 
 // Query the piano parent
 const pianoParent = document.querySelector('.parent')
@@ -112,9 +118,10 @@ let keys = notesArr.map(el => {
     return key
 })
 
-// Function play a piano note
-function playNote(note) {
-    bassSynth.triggerAttackRelease(`${note}3`, '8n')
+// Function play a piano note on a keyboard press
+function playNote(n) {
+    let [key] = notesArr.filter(key => key.dataKey === n)
+    bassSynth.triggerAttackRelease(`${key.note}3`, '8n', 1)
 }
 
 // Append piano to the DOM
