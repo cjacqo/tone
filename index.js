@@ -2,8 +2,6 @@
 
 
 // ------ VARIABLES ------ //
-// -- Tone
-const TONE = new Tone()
 // -- Audio Context
 let context
 
@@ -120,11 +118,6 @@ function init() {
         alert('Web Audio API is not supported in this browser')
     }
 }
-
-// resume context on window reload
-// if (location.reload()) {
-//     console.log("Reloaded")
-// }
 
 init()
 
