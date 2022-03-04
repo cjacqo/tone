@@ -1,14 +1,16 @@
 // const { Tone } = require("tone/build/esm/core/Tone")
 
-
 // ------ VARIABLES ------ //
 // -- Audio Context
 let context
 
 // -- Page Elements
-const pianoParent = document.querySelector('.parent')
+const pianoParent = document.querySelector('.piano.parent')
 const pianoContainer = document.createElement('div')
 pianoContainer.classList.add('piano', 'container')
+const buttonsParent = document.querySelector('.buttons.parent')
+const buttonContainer = document.createElement('div')
+buttonContainer.classList.add('buttons', 'container')
 
 // -- Tone Elements
 // synths
@@ -95,33 +97,40 @@ const notesArr = [
     }
 ]
 
-// ------ WINDOW ------ //
-// -- Event Listeners
-// handle keyboard clicks to play/release notes
-window.addEventListener('keydown', playNote)
-window.addEventListener('keyup', releaseNote)
+// Array of wave types for oscillator
+const oscTypeArr = [ 'sine', 'sawtooth', 'triangle', 'square']
 
 function init() {
     try {
         window.AudioContext = window.AudioContext || window.webkitAudioContext
         context = new AudioContext()
-
-        // initialize synths
-        synth = new Tone.Synth()
-        bassSynth = new Tone.MonoSynth().toMaster()
-        // define synth settings
-        synth.oscillator.type = 'sine'
-        // connect synths to audio nodes(?)
-        synth.toMaster()
         context.resume()
     } catch (err) {
         alert('Web Audio API is not supported in this browser')
     }
 }
 
-init()
+// ------ WINDOW ------ //
+// -- Event Listeners
+// handle keyboard clicks to play/release notes
+window.addEventListener('keydown', playNote)
+window.addEventListener('keyup', releaseNote)
 
-// Create list of key objects (HTML with click listener)
+window.onload = function() {
+    init()
+    // initialize synths
+    synth = new Tone.Synth()
+    bassSynth = new Tone.MonoSynth().toMaster()
+    // define synth settings
+    synth.oscillator.type = 'sine'
+    // connect synths to audio nodes(?)
+    synth.toMaster()
+}
+
+
+// ------ CREATE ELEMENTS TO APPEND ------ //
+// -- Piano Keys
+// create list of key objects (HTML with click listener)
 let keys = notesArr.map(el => {
     const { note, dataKey } = el
     let key = document.createElement('div')
@@ -141,6 +150,20 @@ let keys = notesArr.map(el => {
     // append key to pianoContainer
     pianoContainer.appendChild(key)
     return key
+})
+// -- OSC Wave Type Buttons
+let waveBtns = oscTypeArr.map(el => {
+    const wave = el
+    let btn = document.createElement('button')
+    btn.setAttribute('value', wave)
+    btn.innerText = wave
+
+    btn.addEventListener('click', () => {
+        setOscillatorType(wave)
+    })
+
+    buttonContainer.appendChild(btn)
+    return btn
 })
 
 // Function play a piano note on a keyboard press
@@ -166,5 +189,11 @@ function releaseNote(e) {
     })
 }
 
+// Function pick synth oscillator
+function setOscillatorType(e) {
+    synth.oscillator.type = e
+}
+
 // Append piano to the DOM
 pianoParent.appendChild(pianoContainer)
+buttonsParent.appendChild(buttonContainer)
