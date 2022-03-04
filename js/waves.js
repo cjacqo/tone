@@ -20,63 +20,21 @@ function sineWave(origin, svg) {
     return svg
 }
 
-function sawtoothWave(svg) {
-    let line = document.createElementNS("http://www.w3.org/2000/svg", "line")
-    let line2 = document.createElementNS("http://www.w3.org/2000/svg", "line")
-    let lines = []
+function drawWave(svg, dimensions) {
+    dimensions.map(d => {
+        const { x1, y1, x2, y2 } = d
+        let line = document.createElementNS("http://www.w3.org/2000/svg", "line")
 
-    // --- first line: diagonal line
-    line.setAttribute('x1', 0)
-    line.setAttribute('y1', 110)
+        line.setAttribute('x1', x1)
+        line.setAttribute('y1', y1)
 
-    line.setAttribute('x2', 75)
-    line.setAttribute('y2', 0)
-    line.setAttribute('style', "stroke: black; stroke-width: 5;")
+        line.setAttribute('x2', x2)
+        line.setAttribute('y2', y2)
+        line.setAttribute('style', "stroke: black; stroke-width: 5;")
 
-    // --- second line: straight down
-    line2.setAttribute('x1', 75)
-    line2.setAttribute('y1', 0)
-
-    line2.setAttribute('x2', 75)
-    line2.setAttribute('y2', 110)
-    line2.setAttribute('style', "stroke: black; stroke-width: 5;")
-
-    lines.push(line)
-    lines.push(line2)
-    
-    lines.forEach(l => {
-        svg.appendChild(l)
+        svg.appendChild(line)
     })
-    return svg
-}
 
-function triangleWave(svg) {
-    let line = document.createElementNS("http://www.w3.org/2000/svg", "line")
-    let line2 = document.createElementNS("http://www.w3.org/2000/svg", "line")
-    let lines = []
-
-    // --- first line: diagonal line
-    line.setAttribute('x1', 0)
-    line.setAttribute('y1', 110)
-
-    line.setAttribute('x2', 50)
-    line.setAttribute('y2', 0)
-    line.setAttribute('style', "stroke: black; stroke-width: 5;")
-
-    // --- second line: straight down
-    line2.setAttribute('x1', 50)
-    line2.setAttribute('y1', 0)
-
-    line2.setAttribute('x2', 100)
-    line2.setAttribute('y2', 110)
-    line2.setAttribute('style', "stroke: black; stroke-width: 5;")
-
-    lines.push(line)
-    lines.push(line2)
-    
-    lines.forEach(l => {
-        svg.appendChild(l)
-    })
     return svg
 }
 
@@ -93,17 +51,84 @@ function getWaveImage(wave) {
         y: 25
     }
 
+    let dimensions = [
+        // Sawtooth
+        [
+            {
+                x1: 0,
+                y1: 110,
+                x2: 100,
+                y2: 0
+            },
+            {
+                x1: 100,
+                y1: 0,
+                x2: 100,
+                y2: 110
+            }
+        ],
+        // Triangle
+        [
+            {
+                x1: 0,
+                y1: 110,
+                x2: 50,
+                y2: 0
+            },
+            {
+                x1: 50,
+                y1: 0,
+                x2: 100,
+                y2: 110
+            }
+        ],
+        // Square
+        [
+            {
+                x1: 0,
+                y1: 110,
+                x2: 0,
+                y2: 0
+            },
+            {
+                x1: 0,
+                y1: 0,
+                x2: 50,
+                y2: 0
+            },
+            {
+                x1: 50,
+                y1: 0,
+                x2: 50,
+                y2: 110
+            },
+            {
+                x1: 50,
+                y1: 110,
+                x2: 100,
+                y2: 110
+            },
+            {
+                x1: 100,
+                y1: 110,
+                x2: 100,
+                y2: 0
+            }
+        ]
+    ]
+
     switch(wave) {
         case 'sine':
             sineWave(origin, svg)
             break
         case 'sawtooth':
-            sawtoothWave(svg)
+            drawWave(svg, dimensions[0])
             break
         case 'triangle':
-            triangleWave(svg)
+            drawWave(svg, dimensions[1])
             break
         case 'square':
+            drawWave(svg, dimensions[2])
             break
         default:
             return
