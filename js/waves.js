@@ -50,6 +50,36 @@ function sawtoothWave(svg) {
     return svg
 }
 
+function triangleWave(svg) {
+    let line = document.createElementNS("http://www.w3.org/2000/svg", "line")
+    let line2 = document.createElementNS("http://www.w3.org/2000/svg", "line")
+    let lines = []
+
+    // --- first line: diagonal line
+    line.setAttribute('x1', 0)
+    line.setAttribute('y1', 110)
+
+    line.setAttribute('x2', 50)
+    line.setAttribute('y2', 0)
+    line.setAttribute('style', "stroke: black; stroke-width: 5;")
+
+    // --- second line: straight down
+    line2.setAttribute('x1', 50)
+    line2.setAttribute('y1', 0)
+
+    line2.setAttribute('x2', 100)
+    line2.setAttribute('y2', 110)
+    line2.setAttribute('style', "stroke: black; stroke-width: 5;")
+
+    lines.push(line)
+    lines.push(line2)
+    
+    lines.forEach(l => {
+        svg.appendChild(l)
+    })
+    return svg
+}
+
 function getWaveImage(wave) {
     // create page element
     let svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
@@ -71,6 +101,7 @@ function getWaveImage(wave) {
             sawtoothWave(svg)
             break
         case 'triangle':
+            triangleWave(svg)
             break
         case 'square':
             break

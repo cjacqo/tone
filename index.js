@@ -98,7 +98,7 @@ const notesArr = [
 ]
 
 // Array of wave types for oscillator
-const oscTypeArr = [ 'sine', 'sawtooth' ]
+const oscTypeArr = [ 'sine', 'sawtooth', 'triangle', 'square' ]
 
 function init() {
     try {
