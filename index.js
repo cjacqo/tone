@@ -183,7 +183,7 @@ function playNote(e) {
     }
 
     Tone.context.resume().then(() => {
-        synth.triggerAttack(`${note}3`, Tone.now)
+        synth.triggerAttack(`${note}3`, Tone.context.currentTime)
     })
 }
 
