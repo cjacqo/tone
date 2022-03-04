@@ -178,7 +178,7 @@ function playNote(e) {
     }
 
     Tone.context.resume().then(() => {
-        synth.triggerAttack(`${note}3`, '+0')
+        synth.triggerAttack(`${note}3`, Tone.now)
     })
 }
 
