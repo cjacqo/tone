@@ -1,8 +1,14 @@
 let loopBeat
-let bassSynth, snare, cymbalSynth, polySynth
+let bassSynth, snare, cymbalSynth, polySynth, synth
 let counter
 
+synth = new Tone.Synth()
 bassSynth = new Tone.MonoSynth().toMaster()
+
+// Set tone of the synth to sine
+synth.oscillator.type = 'sine'
+// Connect to the master output
+synth.toMaster()
 
 // Array of note objects
 const notesArr = [
@@ -85,6 +91,7 @@ const notesArr = [
 
 // Add event listener to listen for keyboard clicks
 window.addEventListener('keydown', playNote)
+window.addEventListener('keyup', releaseNote)
 
 // Query the piano parent
 const pianoParent = document.querySelector('.parent')
@@ -118,13 +125,23 @@ let keys = notesArr.map(el => {
 // Function play a piano note on a keyboard press
 function playNote(e) {
     let note
+
     if (e.type === 'keydown') {
         [key] = notesArr.filter(key => key.dataKey === e.code)
         note = key.note
     } else {
         note = e
     }
-    bassSynth.triggerAttackRelease(`${note}3`, '8n', 1)
+
+    synth.triggerAttack(`${note}3`, '+0')
+}
+
+// Function to release a note on a keyboard release
+function releaseNote(e) {
+    let note
+    let [key] = notesArr.filter(key => key.dataKey === e.code)
+    note = key.note
+    synth.triggerRelease()
 }
 
 // Append piano to the DOM
