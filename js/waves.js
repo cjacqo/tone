@@ -2,7 +2,7 @@ function sineWave(origin, svg) {
     let amplitude = 20      // --- helps control height
     let rarity = 2          // --- ??? not sure what it does yet, but higher number stretches the wave
     let freq = 0.25          // --- controls how many waves their are
-    let phase = 3
+    let phase = 2
 
     for (let i = -100; i < 100; i++) {
         let line = document.createElementNS("http://www.w3.org/2000/svg", "line")
