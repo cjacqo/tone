@@ -236,6 +236,12 @@ function setOscillatorType(e) {
     synth.oscillator.type = e
 }
 
+// Practice making knobs
+let knobs = new Knobs()
+knobs.newKnob("Test")
+
+console.log(knobs.numberOfKnobs)
+
 // Append piano to the DOM
 pianoParent.appendChild(pianoContainer)
 buttonsParent.appendChild(buttonContainer)
