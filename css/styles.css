@@ -26,6 +26,11 @@ body {
     flex-direction: column;
 }
 
+.set-width {
+    width: 80vw;
+    margin: 0 auto;
+}
+
 /* --- PAGE PARENT --- */
 .page.parent {
     height: 100%;
@@ -36,21 +41,23 @@ body {
 /* -- top */
 .sequencer.container {
     display: grid;
-    /* grid-gap: 1rem; */
+    grid-gap: 5px;
     grid-template-rows: repeat(var(--grid-rows), 1fr);
     grid-template-columns: repeat(var(--grid-cols), 1fr);
 }
 
 .sequencer-item {
-    /* padding: 1em; */
+    padding: 10px 0;
     border: 1px solid #ddd;
     text-align: center;
 }
 
+.sequencer-item.active {
+    background-color: red;
+}
+
 /* -- bottom */
 .section.bottom > .parent {
-    width: 80vw;
-    margin: 0 auto;
     justify-content: center;
     align-items: flex-start;
 }
@@ -85,7 +92,6 @@ svg {
 /* ~ piano ~ */
 .piano.parent {
     text-align: center;
-    width: 100vw;
 }
 
 .piano.container {
