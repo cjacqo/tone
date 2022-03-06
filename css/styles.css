@@ -1,0 +1,93 @@
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: orange;
+    margin: 0;
+}
+
+.piano.parent {
+    text-align: center;
+    width: 100vw;
+    height: 40vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.piano.container {
+    height: 18.875em;
+    min-width: 34em;
+    position: relative;
+}
+
+.piano > * {
+    position: relative;
+    float: left;
+}
+
+.piano > .white {
+    height: 16em;
+    width: 4em;
+    z-index: 1;
+    background-color: #FFF;
+    border-left: 1px solid #bbb;
+    border-bottom: 1px solid #bbb;
+    border-radius: 0 0 5px 5px;
+}
+
+.piano :nth-child(1),
+.piano :nth-child(6),
+.piano :nth-child(13)  {
+    margin-right: -0.5em;
+}
+
+.piano :nth-child(3),
+.piano :nth-child(8),
+.piano :nth-child(10),
+.piano :nth-child(12)   {
+    margin: 0 -0.5em;
+}
+
+.piano :nth-child(5),
+.piano :nth-child(15)  {
+    margin-left: -0.5em;
+}
+
+.black {
+    height: 8em;
+    width: 2em;
+    margin: 0 0 0 -1em;
+    z-index: 2;
+    background-color: #777;
+    border: 1px solid #000;
+    border-radius: 0 0 3px 3px;
+    transform: translateX(0.5em);
+}
+
+.buttons.container {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+button {
+    padding: 0;
+    margin: 0;
+    border: none;
+    min-width: 25px;
+    min-height: 25px;
+    background-color: transparent;
+    display: inline-flex;
+}
+
+svg {
+    position: relative;
+    min-height: 25px;
+    min-width: 25px;
+}
