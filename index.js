@@ -8,6 +8,7 @@ let context
 let octave
 
 // -- Page Elements
+const sequencerParent = document.querySelector('.sequencer.parent')
 const pianoParent = document.querySelector('.piano.parent')
 const pianoContainer = document.createElement('div')
 pianoContainer.classList.add('piano', 'container')
@@ -243,6 +244,11 @@ let knobsArr = knobs.allKnobs
 
 console.log(knobsArr[0])
 
+// Sequencer
+let sequencer = new Sequencer()
+console.log(sequencer)
+
 // Append piano to the DOM
+sequencerParent.appendChild(sequencer.element)
 pianoParent.appendChild(pianoContainer)
 buttonsParent.appendChild(buttonContainer)

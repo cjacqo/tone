@@ -34,6 +34,18 @@ body {
 
 /* --- SECTIONS --- */
 /* -- top */
+.sequencer.container {
+    display: grid;
+    /* grid-gap: 1rem; */
+    grid-template-rows: repeat(var(--grid-rows), 1fr);
+    grid-template-columns: repeat(var(--grid-cols), 1fr);
+}
+
+.sequencer-item {
+    /* padding: 1em; */
+    border: 1px solid #ddd;
+    text-align: center;
+}
 
 /* -- bottom */
 .section.bottom > .parent {
