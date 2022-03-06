@@ -42,7 +42,6 @@ body {
 }
 
 .piano.container {
-    height: 18.875em;
     min-width: 34em;
     position: relative;
 }
