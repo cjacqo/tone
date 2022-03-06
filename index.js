@@ -13,7 +13,7 @@ const pianoContainer = document.createElement('div')
 pianoContainer.classList.add('piano', 'container')
 const buttonsParent = document.querySelector('.buttons.parent')
 const buttonContainer = document.createElement('div')
-buttonContainer.classList.add('buttons', 'container')
+buttonContainer.classList.add('buttons', 'container', 'flex', 'col')
 
 // -- Tone Elements
 // synths
@@ -238,9 +238,10 @@ function setOscillatorType(e) {
 
 // Practice making knobs
 let knobs = new Knobs()
-knobs.newKnob("Test")
+knobs.newKnob("knob", oscTypeArr, 0)
+let knobsArr = knobs.allKnobs
 
-console.log(knobs.numberOfKnobs)
+console.log(knobsArr[0])
 
 // Append piano to the DOM
 pianoParent.appendChild(pianoContainer)

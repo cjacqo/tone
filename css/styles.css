@@ -26,19 +26,54 @@ body {
     flex-direction: column;
 }
 
-/* --- PAGE PARENT ---*/
+/* --- PAGE PARENT --- */
 .page.parent {
     height: 100%;
     justify-content: space-between;
 }
 
+/* --- SECTIONS --- */
+/* -- top */
+
+/* -- bottom */
+.section.bottom > .parent {
+    width: 80vw;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+/* ~ controls ~ */
+.controls.parent {
+    padding: 1rem 0;
+}
+
+.buttons.container {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 0.333rem;
+}
+
+button {
+    padding: 0;
+    margin: 0;
+    border: none;
+    min-width: 25px;
+    min-height: 25px;
+    background-color: transparent;
+    display: inline-flex;
+}
+
+svg {
+    position: relative;
+    min-height: 25px;
+    min-width: 25px;
+}
+
+/* ~ piano ~ */
 .piano.parent {
     text-align: center;
     width: 100vw;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
 }
 
 .piano.container {
@@ -90,23 +125,58 @@ body {
     transform: translateX(0.5em);
 }
 
-.buttons.container {
-    display: flex;
-    justify-content: space-evenly;
+
+/* ----- KNOBS ----- */
+.control.container {
+    width: 50%;
+    height: 5rem;
+    margin: 0 auto;
 }
 
-button {
-    padding: 0;
-    margin: 0;
-    border: none;
-    min-width: 25px;
-    min-height: 25px;
-    background-color: transparent;
-    display: inline-flex;
+.control.container::before {
+    background-color: linear-gradient(
+        0deg, #525252 0%, #373737 100%
+    );
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    box-shadow: 0px -20px 20px #757575,
+                   0px 20px 35px #111111,
+                   inset 0px 5px 6px #979797,
+                   inset 0px -5px 6px #242424;
 }
 
-svg {
+.control.container::before, .knob {
+    width: 3rem;
+    height: 3rem;
     position: relative;
-    min-height: 25px;
-    min-width: 25px;
+}
+
+.knob::before,
+.knob::after,
+.control.container::before {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+}
+
+.knob::before {
+    top: 15px;
+    left: 50%;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    background-color: #fff;
+    box-shadow: 0px 0px 10px #349BEB;
+}
+
+.knob::after {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 3px solid #FFF;
+    width: 130%;
+    height: 130%;
+    box-shadow: 0px 0px 10px #349BEB,
+                inset 0px 0px 10px #349BEB;
 }
